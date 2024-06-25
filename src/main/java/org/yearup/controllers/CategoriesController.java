@@ -94,6 +94,6 @@ public class CategoriesController
     public void deleteCategory(@PathVariable int id)
     {
         categoryDao.delete(id);
-        // delete the category by id
+        // delete the category by idFins
     }
 }
