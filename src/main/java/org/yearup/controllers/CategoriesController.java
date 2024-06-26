@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.yearup.data.CategoryDao;
 import org.yearup.data.ProductDao;
 import org.yearup.models.Category;
@@ -46,8 +47,11 @@ public class CategoriesController
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public Category getById(@PathVariable int id)
     {
-        return categoryDao.getById(id);
-        // get the category by id
+        Category category = categoryDao.getById(id);
+        if (category == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found with id: " + id);
+        }
+        return category;
     }
 
     // the url to return all products in category 1 would look like this
@@ -56,9 +60,10 @@ public class CategoriesController
     public List<Product> getProductsById(@PathVariable int categoryId)
     {
         List<Product> products = productDao.listByCategoryId(categoryId);
-
+        if (products == null || products.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No products found for category id: " + categoryId);
+        }
         return products;
-        // get a list of product by categoryId
 
     }
 
