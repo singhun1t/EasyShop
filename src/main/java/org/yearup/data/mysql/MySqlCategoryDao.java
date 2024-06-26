@@ -79,11 +79,12 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
     @Override
     public Category create(Category category)
     {
-        String query = "INSERT INTO categories (name) VALUES(?)";
+        String query = "INSERT INTO categories (name, description) VALUES(?,?)";
 
         try(Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)){
             preparedStatement.setString(1, category.getName());
+            preparedStatement.setString(2,category.getDescription());
 
             int affectedRows = preparedStatement.executeUpdate();
 
@@ -94,7 +95,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
             try(ResultSet generatedKeys = preparedStatement.getGeneratedKeys()){
                 if(generatedKeys.next()){
                     int generatedId = generatedKeys.getInt(1);
-                    category.setCategoryId(generatedId);
+                    return getById(generatedId);
                 }else{
                     throw new SQLException("Creating category failed");
                 }
@@ -105,17 +106,18 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
         }
 
         // create a new category
-        return category;
+        return null;
     }
 
     @Override
     public void update(int categoryId, Category category)
     {
-        String query = "UPDATE categories SET name = ? WHERE category_id = ?";
+        String query = "UPDATE categories SET name = ?, description = ? WHERE category_id = ?";
         try(Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(query)){
             preparedStatement.setString(1,category.getName());
-            preparedStatement.setInt(2, categoryId);
+            preparedStatement.setString(2,category.getDescription());
+            preparedStatement.setInt(3, categoryId);
 
             preparedStatement.executeUpdate();
 
