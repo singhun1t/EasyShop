@@ -72,7 +72,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
         }catch (Exception ex){
             ex.printStackTrace();
         }
-        // get category by id
+
         return null;
     }
 
@@ -105,7 +105,6 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
             ex.printStackTrace();
         }
 
-        // create a new category
         return null;
     }
 
@@ -124,7 +123,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
         }catch (Exception ex){
             ex.printStackTrace();
         }
-        // update category
+
     }
 
     @Override
@@ -142,7 +141,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
         }catch (Exception ex){
             ex.printStackTrace();
         }
-        // delete category
+
     }
 
     private Category mapRow(ResultSet row) throws SQLException

@@ -49,7 +49,7 @@ public class CategoriesController
     {
         Category category = categoryDao.getById(id);
         if (category == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found with id: " + id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found " + id);
         }
         return category;
     }
@@ -61,7 +61,7 @@ public class CategoriesController
     {
         List<Product> products = productDao.listByCategoryId(categoryId);
         if (products == null || products.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No products found for category id: " + categoryId);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No products found " + categoryId);
         }
         return products;
 
