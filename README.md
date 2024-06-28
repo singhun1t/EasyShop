@@ -1,7 +1,7 @@
 # EasyShop
 
 ## Description of the Project
-Easyshop is a  web application program that connects backend to the front end to display shop inventory from sql database to the user with html visuals.
+Easyshop is a  web application program that connects backend to the front end to display shop inventory using Spring Boot API interacting wiht an SQL database.
 
 ## User Stories
 
